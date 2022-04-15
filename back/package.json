@@ -23,6 +23,7 @@
     "test:unit": "npm test -- --watchAll -c jest-unit-config.ts",
     "test:integration": "npm test -- --watchAll -c jest-integration-config.ts",
     "test:staged": "npm test -- --findRelatedTests",
+    "prepare": "cd .. && husky install back/.husky"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
