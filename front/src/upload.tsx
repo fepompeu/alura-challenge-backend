@@ -1,11 +1,14 @@
-import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import Stack from '@mui/material/Stack'
 
-const Input = styled('input')({
-  display: 'none',
-})
+const onChange = (e) => {
+  // let url = "https://<server-url>/api/upload";
+  // let file = e.target.files[0];
+  // uploadFile(url, file);
+  console.log(e.target)
+  console.log('teste')
+}
 
 export default function UploadButton() {
   return (
@@ -16,7 +19,14 @@ export default function UploadButton() {
       justifyContent="center"
     >
       <label htmlFor="contained-button-file">
-        <Input accept=".csv" id="contained-button-file" multiple type="file" />
+        <input
+          accept=".csv"
+          id="contained-button-file"
+          multiple
+          type="file"
+          onChange={onChange}
+          style={{ display: 'none' }}
+        />
         <Button variant="contained" component="span">
           <FileUploadIcon />
           Upload
