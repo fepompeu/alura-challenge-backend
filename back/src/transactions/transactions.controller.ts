@@ -1,13 +1,22 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('transactions')
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
   @Post()
-  create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionsService.create(createTransactionDto);
+  @UseInterceptors(FileInterceptor('file'))
+  bulkCreate(@UploadedFile() file: Express.Multer.File) {
+    console.log(file);
+
+    return this.transactionsService.create(CreateTransactionDto);
   }
 }
