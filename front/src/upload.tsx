@@ -1,16 +1,30 @@
 import Button from '@mui/material/Button'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import Stack from '@mui/material/Stack'
-
-const onChange = (e) => {
-  // let url = "https://<server-url>/api/upload";
-  // let file = e.target.files[0];
-  // uploadFile(url, file);
-  console.log(e.target)
-  console.log('teste')
-}
+import { useState } from 'react'
+import axios from 'axios'
 
 export default function UploadButton() {
+  const [file, setFile] = useState({}) as any
+
+  const handleSubmit = (file) => {
+    if (file) {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      axios({
+        url: `http://localhost:8080/transactions/upload`,
+        method: 'POST',
+        data: formData,
+      })
+    }
+  }
+
+  const handleFileUpdate = (event) => {
+    const input = event.target.files[0]
+    setFile(input)
+    handleSubmit(input)
+  }
   return (
     <Stack
       direction="row"
@@ -24,7 +38,7 @@ export default function UploadButton() {
           id="contained-button-file"
           multiple
           type="file"
-          onChange={onChange}
+          onChange={handleFileUpdate}
           style={{ display: 'none' }}
         />
         <Button variant="contained" component="span">
